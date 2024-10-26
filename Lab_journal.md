@@ -39,3 +39,10 @@
 
 
     commande : filtlong -1 /data/projet4/data/raw/ShortReads/YJS7890_Teq_1.fq.gz -2 /data/projet4/data/raw/ShortReads/YJS7890_Teq_2.fq.gz --min_length 1000 --keep_percent 90 --target_bases 20000000 /data/projet4/data/raw/Longreads_dezip/YJS7890_1000seq.fasta.gz | gzip > /data/projet4/data/filtlong/output_YJS7890_Teq_2_test.fasta.gz (Céline)
+
+
+## 25/10 :
+* Ajout du git ignore : (Adeline)
+    - Commande :
+        touch .gitignore
+        Et ajout des dossiers conda et data
