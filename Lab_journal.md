@@ -96,8 +96,36 @@
 ## 29/10 :
 * Ajout d'un package seqkit sur l'environnement flye_env : (Céline)
     commande : conda install -c bioconda seqkit
+    (version 2.8.2)
 
 * Filtre des fichiers LongReads Corrected : supprimer les séquences de moins de 1000 pb avec seqkit: (Céline)
     commande : seqkit seq -m 1000 /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz | gzip > /data/projet4/data/data_modified/LongReads_wo_1000/filtered_YJS7890_1n_correctedLR.fasta.gz
 
     fichiers sans gaps : seqkit seq -m 1000 -g /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz | gzip > /data/projet4/data/data_modified/LongReads_wo_1000/nogap_filtered_YJS7890_1n_correctedLR.fasta.gz
+
+* Test pour voir si le filtre a marché : avec seqkit (Céline)
+    commandes : seqkit stats -T /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz | awk 'NR==2 {print $6}'
+                --> pour les data raw : 977 bp pour la séquence la plus petite 
+                seqkit stats -T /data/projet4/data/data_modified/LongReads_wo_1000/filtered_YJS7890_1n_correctedLR.fasta.gz | awk 'NR==2 {print $6}'
+                --> pour les data filtrées : 1000 bp pour la séquence la plus petite
+
+* Lancement des assemblages de génome avec flye pour la souche 7890 sans modifications et filtrée : (Céline)
+    commandes : nohup flye --nano-corr /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz --out-dir /data/projet4/data/flye/YJS7890_output/YJS7890_raw --genome-size 13m --threads 4 > /data/projet4/data/flye/YJS7890_output/flye_output.log 2>&1 & 
+
+    --> les fichiers de sorties se trouvent dans ./data/flye/YJS7890_output/YJS7890_raw/
+
+    Sans les séquences < 1000 bp : 
+    nohup flye --nano-corr /data/projet4/data/data_modified/LongReads_wo_1000/filtered_YJS7890_1n_correctedLR.fasta.gz --out-dir /data/projet4/data/flye/YJS7890_output/YJS7890_filtered --genome-size 13m --threads 4 > /data/projet4/data/flye/YJS7890_output/flye_YJS7890_filtered_output.log 2>&1 &
+
+    --> les fichiers de sorties se trouvent dans ./data/flye/YJS7890_output/YJS7890_filtered/
+
+* Assemblage de génome avec smartdenovo pour la souche 7890 sans modifications et filtrée : (Adeline)
+    commande :
+        /data/projet4/conda/masson/flye_env/bin/smartdenovo.pl -t 4 -p YJS7890_raw /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz > YJS7890_raw.mak
+        make -f YJS7890_raw.mak
+    --> les fichiers de sorties se trouvent dans ./data/smartdenovo/YJS7890_raw
+
+    Sans les séquences < 1000 bp :
+        /data/projet4/conda/masson/flye_env/bin/smartdenovo.pl -t 4 -p YJS7890_filtered /data/projet4/data/data_modified/LongReads_wo_1000/filtered_YJS7890_1n_correctedLR.fasta.gz > YJS7890_filtered.mak
+        make -f YJS7890_filtered.mak
+    --> les fichiers de sorties se trouvent dans ./data/smartdenovo/YJS7890_filtered
