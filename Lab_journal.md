@@ -129,3 +129,17 @@
         /data/projet4/conda/masson/flye_env/bin/smartdenovo.pl -t 4 -p YJS7890_filtered /data/projet4/data/data_modified/LongReads_wo_1000/filtered_YJS7890_1n_correctedLR.fasta.gz > YJS7890_filtered.mak
         make -f YJS7890_filtered.mak
     --> les fichiers de sorties se trouvent dans ./data/smartdenovo/YJS7890_filtered
+
+* Création des fichiers resume des assemblages flye : (Céline)
+    commande :  NanoStat --fasta /data/projet4/data/flye/YJS7890_output/YJS7890_raw/assembly.fasta --outdir /data/projet4/data/resume_reads/ --name YJS7890_flye_rawassembly_resume
+    --> pour les raw data
+
+    NanoStat --fasta /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly.fasta --outdir /data/projet4/data/resume_reads/ --name YJS7890_flye_filteredassembly_resume
+    --> pour les data filtrées
+
+* Création des fichiers resume des assemblages smatdenovo : (Céline)
+    commande : NanoStat --fasta /data/projet4/data/smartdenovo/YJS7890_raw/YJS7890_raw.fa.gz \ --outdir /data/projet4/data/resume_reads/ \ --name YJS7890_smartdenovo_rawassembly_resume
+    --> pour les raw data 
+
+    NanoStat --fasta /data/projet4/data/smartdenovo/YJS7890_filtered/YJS7890_filtered.fa.gz --outdir /data/projet4/data/resume_reads/ --name YJS7890_smartdenovo_filteredassembly_resume
+    --> pour les data filtrées
