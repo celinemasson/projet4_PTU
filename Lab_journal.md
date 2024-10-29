@@ -72,7 +72,7 @@
     commande : NanoStat --fasta /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz \
          --outdir /data/projet4/data/resume_reads \
          --name YJS7890_1n_resume
-         (fichier text en sortie)
+         (fichier .txt en sortie)
 
     En format tsv : (Adeline)
         NanoStat --fasta /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz \
@@ -92,3 +92,12 @@
     merged_data <- cbind(data_YJS7890["Metrics"], data_YJS7890["dataset_YJS7890"], data_YJS7895["dataset_YJS7895"], data_YJS8039["dataset_YJS8039"])
     merged_data <- rbind(merged_data, list(Metrics = "depth",dataset_YJS7890 = 16.4829,dataset_YJS7895 = 25.5730, dataset_YJS8039 = 29.7364))
     write.table(merged_data, "data/resume_reads/resume_reads.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+
+## 29/10 :
+* Ajout d'un package seqkit sur l'environnement flye_env : (Céline)
+    commande : conda install -c bioconda seqkit
+
+* Filtre des fichiers LongReads Corrected : supprimer les séquences de moins de 1000 pb avec seqkit: (Céline)
+    commande : seqkit seq -m 1000 /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz | gzip > /data/projet4/data/data_modified/LongReads_wo_1000/filtered_YJS7890_1n_correctedLR.fasta.gz
+
+    fichiers sans gaps : seqkit seq -m 1000 -g /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz | gzip > /data/projet4/data/data_modified/LongReads_wo_1000/nogap_filtered_YJS7890_1n_correctedLR.fasta.gz
