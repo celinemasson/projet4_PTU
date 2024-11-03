@@ -143,3 +143,55 @@
 
     NanoStat --fasta /data/projet4/data/smartdenovo/YJS7890_filtered/YJS7890_filtered.fa.gz --outdir /data/projet4/data/resume_reads/ --name YJS7890_smartdenovo_filteredassembly_resume
     --> pour les data filtrées
+
+
+## 03/11 : 
+* Comptage du nombre de séquences en dessous de 1000 pb : (Céline)
+    exemple de commande : seqkit seq -m 0 -M 999 YJS7890_1n_correctedLR.fasta.gz | seqkit stats
+    --> filtrage des séquences nécessaire pour les souches Wine (nb_seq < 1000 = 1093) et Beer (nb_seq < 1000 = 578), peut être négligeable pour Tequila (nb_seq < 1000 = 9)
+
+
+* Run des assemblages flye des souches 7895 et 8039 (raw et flitered) : (Céline)
+    commandes : 
+    souche 7895 :
+    nohup flye --nano-corr /data/projet4/data/raw/LongReads/Corrected/YJS7895_1n_correctedLR.fasta.gz --out-dir /data/projet4/data/flye/YJS7895_output/YJS7895_raw --genome-size 13m --threads 4 > /data/projet4/data/flye/YJS7895_output/flye_output_7895raw.log 2>&1 & 
+    souche 8039 :
+    nohup flye --nano-corr /data/projet4/data/raw/LongReads/Corrected/YJS8039_1n_correctedLR.fasta.gz --out-dir /data/projet4/data/flye/YJS8039_output/YJS8039_raw --genome-size 13m --threads 4 > /data/projet4/data/flye/YJS8039_output/flye_output_8039raw.log 2>&1 &
+
+* Run de plusieurs flye pour 7890 raw : (Céline)
+    - test avec l'option --min overlap (300 et 750)
+    - test avec une référence --polish-target
+    - test avec l'option --scaffold 
+
+* Création automatic_launch.py : pour lancer plusieurs lignes de commande à la suite
+
+* Re teste de la commande smartdenovo : (Adeline)
+    commande :
+    /data/projet4/conda/masson/flye_env/bin/smartdenovo.pl -t 4 -p YJS7890_raw -c 1 /data/projet4/data/raw/LongReads/Corrected/YJS7890_1n_correctedLR.fasta.gz > data/smartdenovo/YJS7890_raw/YJS7890_raw.mak
+    make -f data/smartdenovo/YJS7890_raw/YJS7890_raw.mak
+
+    résumé avec nanostat :
+    cp /data/projet4/data/smartdenovo/YJS7890_raw/YJS7890_raw.dmo.cns /data/projet4/data/smartdenovo/YJS7890_raw/YJS7890_raw.dmo.cns.fasta
+    NanoStat --fasta /data/projet4/data/smartdenovo/YJS7890_raw/YJS7890_raw.dmo.cns.fasta --outdir /data/projet4/data/resume_reads/ --name YJS7890_smartdenovo_rawassembly_resume
+
+* Run des assemblages smartdenovo des souches 7895 et 8039 : (Adeline)
+    commande :
+    souche 7895 :
+    /data/projet4/conda/masson/flye_env/bin/smartdenovo.pl -t 4 -p YJS7895_raw -c 1 /data/projet4/data/raw/LongReads/Corrected/YJS7895_1n_correctedLR.fasta.gz > data/smartdenovo/YJS7895_raw/YJS7895_raw.mak
+    make -C /data/projet4/data/smartdenovo/YJS7895_raw/ -f data/smartdenovo/YJS7895_raw/YJS7895_raw.mak
+
+    souche 8039 :
+    /data/projet4/conda/masson/flye_env/bin/smartdenovo.pl -t 4 -p YJS8039_raw -c 1 /data/projet4/data/raw/LongReads/Corrected/YJS7895_1n_correctedLR.fasta.gz > data/smartdenovo/YJS8039_raw/YJS8039_raw.mak
+    make -C /data/projet4/data/smartdenovo/YJS8039_raw/ -f /data/projet4/data/smartdenovo/YJS8039_raw/YJS8039_raw.mak
+
+    + lancement des souches YJS8039 non filtré et YJS7895, YJS8039 filtré avec le script de Céline
+
+* Calcul longueur scaffold et plot avec R : (Adeline)
+    commande :
+    awk '/^>/ {if (NR>1) print length(seq); seq=""; next} {seq = seq $0} END {print length(seq)}' /data/projet4/data/smartdenovo/YJS7890_raw/YJS7890_raw.dmo.cns.fasta > data/smartdenovo/YJS7890_raw/scaffold_lengths.txt
+    
+    R
+    scaffold_lengths <- read.table("scaffold_lengths.txt")$V1
+    png("/data/projet4/data/length_plot_data/smartdenovo_scaffold_size_distribution.png")
+    hist(scaffold_lengths, breaks=100)
+    dev.off()
