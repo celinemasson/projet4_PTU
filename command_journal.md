@@ -51,12 +51,6 @@
 
 
 ## 28/10 :
-* Ajout du package samtools dans l'environnement flye_env (Céline) 
-    - Commande :
-    conda install -c bioconda samtools
-    (version 1.3.1)
-    conda install -c conda-forge ncurses
-    (version 6.4)
 
 * Ajout du package nanostat dans un nouvel environnement nanostat_env : (Adeline)
     conda create -p conda/gagnon/nanostat_env python==3.7
