@@ -8,25 +8,25 @@ Lien : https://github.com/celinemasson/projet4_PTU
 
 ## 23/10 : 
 * Création des environnements : 
- * flye_env : /data/projet4/conda/masson/flye_env (Céline)
-  * package flye (version 2.8.1)
-  * package filtlong 
+  * flye_env : /data/projet4/conda/masson/flye_env (Céline)
+    * package flye (version 2.8.1)
+    * package filtlong 
 
- * smartdenovo : /data/projet4/conda/gagnon/smartdenovo (Adeline)
-  * package smartdenovo (version 1.0.0)
+  * smartdenovo : /data/projet4/conda/gagnon/smartdenovo (Adeline)
+    * package smartdenovo (version 1.0.0)
 
 * Organisation des dossiers : (Adeline)
- * création de fichiers markdown README et Lab_journal 
- * création de nouveaux dossiers : 
-  * code : contiendra les scripts 
-  * data : contient les données brutes et produites
-   - raw : données brutes des Long/Shortreads
-   - filtlong : données output de filtlong 
-  * conda : contient les environnements conda 
+  * création de fichiers markdown README et Lab_journal 
+  * création de nouveaux dossiers : 
+    * code : contiendra les scripts 
+    * data : contient les données brutes et produites
+      - raw : données brutes des Long/Shortreads
+      - filtlong : données output de filtlong 
+    * conda : contient les environnements conda 
 
 * Lancement d'un test Filtlong : (Adeline)
- * préparation des données test : extraction des 1000 premières séquences du fichier fasta de la levure 7890 (tequila) et compression du fichier 
- * test de Filtlong sur les données test (Céline)
+  * préparation des données test : extraction des 1000 premières séquences du fichier fasta de la levure 7890 (tequila) et compression du fichier 
+  * test de Filtlong sur les données test (Céline)
 
 Commentaire : Flye et Smartdenovo nous serviront pour faire des assemblages de génome à partir des séquences LongReads. Filtlong sera utilisé pour filtrer les données (réduire la profondeur).
 
@@ -37,16 +37,16 @@ Commentaire : Flye et Smartdenovo nous serviront pour faire des assemblages de g
 ## 28/10 : 
 
 * Création d'un nouvel environnement pour nanostat car le package est incompatible avec certains packages de l'environnement flye_env. /data/projet4/conda/gagnon/nanostat_env (Adeline) 
- * package nanostat (version 1.4.0)
- * package R (version 4.4)
+  * package nanostat (version 1.4.0)
+  * package R (version 4.4)
 
 * Utilisation de Nanostat pour extraire les métriques des séquences (N50, longueurs moyennes...) des trois souches (Céline, fichiers txt ; Adeline, fichiers tsv). Les fichiers Nanostats se trouvent dans ./data/resume_reads/
 
 * Calcul de la profondeur des séquences : (Céline) 
 Suivant la formule : pronfondeur = nombre total de bases / taille du génome (13Mb)
- * Profondeur 7890 (Tequila) = 214 278 043 / 13 000 000 = 16.4829
- * Profondeur 7895 (Beer) = 332 449 493 / 13 000 000 = 25.5730
- * Profondeur 8039 (Wine) = 386 573 797 / 13 000 000 = 29.7364 
+  * Profondeur 7890 (Tequila) = 214 278 043 / 13 000 000 = 16.4829
+  * Profondeur 7895 (Beer) = 332 449 493 / 13 000 000 = 25.5730
+  * Profondeur 8039 (Wine) = 386 573 797 / 13 000 000 = 29.7364 
 
 Commentaire : L'idée que "plus la profondeur est importante mieux c'est" est fausse. Une profondeur intéressante est environ vers 30X. On a donc cherché à savoir la profondeur de séquençage de nos souches, pour voir si nous avions des profondeurs supérieures à 40X. Ce n'est pas le cas ici, on ne passe pas les 30X. La profondeur est donc acceptable, l'utilisation de Filtlong pour réduire la profondeur ne sera pas nécessaire. 
 
@@ -61,12 +61,12 @@ Commentaire : L'idée que "plus la profondeur est importante mieux c'est" est fa
 Commentaire : enlever les fragments trop petits permettrait de réduire le bruit (les petites séquences peuvent être des répétitions et ne pas porter beaucoup d'informations), réduire le nombre de séquence dans le fichier et potentiellement avoir un meilleur assemblage. Cependant, on ne peut pas exclure la perte potentielle d'informations. 
 
 * Assemblage de génome avec flye pour la souche 7890 : (Céline)
- * sans modification : sur les raw data 
- * avec fichier filtré : sans les séquences < 1000 pb 
+  * sans modification : sur les raw data 
+  * avec fichier filtré : sans les séquences < 1000 pb 
 
 * Assemblage de génome avec smartdenovo pour la souche 7890 : (Adeline)
- * sans modification : sur les raw data 
- * avec fichier filtré : sans les séquences < 1000 pb 
+  * sans modification : sur les raw data 
+  * avec fichier filtré : sans les séquences < 1000 pb 
 
 * Création des fichiers Nanostat (resume_reads) pour les assemblages de flye et smartdenovo (Céline)
 
@@ -85,8 +85,8 @@ Commentaire : Les données semblent cohérentes, la taille du génome est cohér
 * Création du script automatic_launch.py pour lancer plusieurs commandes les unes après les autres (Céline)
 
 * Assemblage flye pour la souche 7890 brut : (Céline)
- * test avec l'option --min overlap (300 et 750) 
- * test avec l'option -- scaffold 
+  * test avec l'option --min overlap (300 et 750) 
+  * test avec l'option -- scaffold 
 (lancés en automatique via le script automatic_launch.py dans la nuit, en attente des résultats)
 
 Commentaire : ces assemblages sont des tests de nouvelles fonctions. --min overlap sépcifie la longueur minimale du chevauchement entre deux séquences pour qu'elles soient considérées comme adjacentes. La valeur de base est de 500, mais peut être diminuée si les données sont de bonne qualité (ce qui est le cas ici). On a donc fait un test avec une valeur plus faible (300) et plus forte (750) pour voir les différences et les effets. Aussi, --scaffold permettrait d'assembler les contigs en scaffold.
