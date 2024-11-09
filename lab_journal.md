@@ -114,3 +114,7 @@ Commentaire : on remarque que les contigs issus de l'assemblage avec smartdenovo
 
 
 Pour la suite : nous allons par la suite travailler sur les assemblages filtrés plutôt que sur les bruts, car la différence est minime et autant privilégier un nombre moins important de séquences dans les fichiers. Pour finir l'étape "assemblage" du projet, il nous reste à faire un polish avec Racon afin de nettoyer les assemblages et de faire un BUSCO sur les assemblages flye et smartdenovo afin de voir si la complétude est similaire entre deux assemblages de deux packages différents.
+
+## 09/11
+
+* Installation de Racon pour le polissage (Adeline)

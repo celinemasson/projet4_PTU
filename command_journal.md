@@ -189,3 +189,10 @@
     png("/data/projet4/data/length_plot_data/smartdenovo_scaffold_size_distribution.png")
     hist(scaffold_lengths, breaks=100)
     dev.off()
+
+
+## 09/11 :
+* Installation de Racon sur l'environnement conda flye_env : (Adeline)
+    commande :
+    conda install bioconda::racon
+    version : v1.4.20
