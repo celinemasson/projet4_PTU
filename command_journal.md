@@ -195,4 +195,19 @@
 * Installation de Racon sur l'environnement conda flye_env : (Adeline)
     commande :
     conda install bioconda::racon
-    version : v1.4.20
+    version : v1.4.3
+
+
+## 11/11 :
+* Installation de Minimap2 et de Samtools sur l'environnement conda flye_env : (Adeline)
+    commande :
+     conda install bioconda::minimap2
+    version : 2.22
+
+     conda install bioconda::samtools
+    version : 1.5
+
+* Utilisation de Minimap 2 :
+    Pour smartdenovo : (Adeline)
+    commande :
+    minimap2 -ax asm5 -t 4 /data/projet4/data/raw/brbr.fasta /data/projet4/data/smartdenovo/YJS7890_filtered/YJS7890_filtered.dmo.cns.fasta > /data/projet4/data/minimap/smartdenovo/alignement_YJS7890.sam

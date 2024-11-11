@@ -72,7 +72,7 @@ Commentaire : enlever les fragments trop petits permettrait de réduire le bruit
 
 Commentaire : les assemblages de flye semblent avoir marché, on a des assemblages d'environ 11 Mb (proche des 13 Mb estimé donc cohérent). On ne note pas de grande différence entre les assemblages avec les données brutes et les données filtrées. Il semble y avoir un problème avec les assemblages de smartdenovo car l'assemblage ne fait que 3 Mb avec des milliers de contigs. On ne pense pas qu'ils aient bien marché, sans doute un problème lors de la commande. Ils seront à refaire. 
 
-## 03/11 
+## 03/11 :
 
 * Comptage du nombre de séquences en dessous de 1000pb pour chaque souche afin d'estimer si on enlève beaucoup de séquences dans les fichiers des différentes souches. (Céline)
 
@@ -96,7 +96,7 @@ Commentaire : ces assemblages sont des tests de nouvelles fonctions. --min overl
 
 * Diagramme de distribution des longueurs des contigs des assemblages par R afin de voir si l'on a pas de trop petites séquences sur 7890 filtrées pour les assemblages flye et smartdenovo  (Adeline)
 
-## 05/11
+## 05/11 :
 
 * Assemblage smartdenovo pour les 3 souches filtrées et fichiers Nanostats (Adeline)
 
@@ -115,6 +115,14 @@ Commentaire : on remarque que les contigs issus de l'assemblage avec smartdenovo
 
 Pour la suite : nous allons par la suite travailler sur les assemblages filtrés plutôt que sur les bruts, car la différence est minime et autant privilégier un nombre moins important de séquences dans les fichiers. Pour finir l'étape "assemblage" du projet, il nous reste à faire un polish avec Racon afin de nettoyer les assemblages et de faire un BUSCO sur les assemblages flye et smartdenovo afin de voir si la complétude est similaire entre deux assemblages de deux packages différents.
 
-## 09/11
+## 09/11 :
 
 * Installation de Racon pour le polissage (Adeline)
+
+## 11/11 :
+
+* Installation de Minimap2 et de Samtools (Adeline)
+
+* Test d'utilisation de Minimap2 sur un fichier d'assemblage de smartdenovo (Céline et Adeline)
+
+Commentaire : nous avons essayer d'utiliser Racon, mais nous avons rencontré des problèmes lors de son utilisation (Erreur : "Aborted (core dumped)").
