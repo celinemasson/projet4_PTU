@@ -211,3 +211,20 @@
     Pour smartdenovo : (Adeline)
     commande :
     minimap2 -ax asm5 -t 4 /data/projet4/data/raw/brbr.fasta /data/projet4/data/smartdenovo/YJS7890_filtered/YJS7890_filtered.dmo.cns.fasta > /data/projet4/data/minimap/smartdenovo/alignement_YJS7890.sam
+
+
+## 18/11 : 
+
+* Installation de Mummer dans l'environnement flye_env : (Adeline)
+    commande :
+      conda install bioconda::mummer
+    version : 3.23
+
+* Création d'un envrionnement conda pour Busco : (Céline) 
+    commande :  conda create -p /data/projet4/conda/masson/busco_env 
+                conda install -c conda-forge -c bioconda busco=5.8.0
+
+* Test de BUSCO avec l'assemblage 7890_filtered de flye : (Céline)
+    commande : nohup busco -i /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta -o /data/projet4/data/busco/busco_flye_7890_filtered -l fungi_odb10 -m genome -c 2 & 
+
+Commentaire : la librairie utilisée pour cela est la librairie des fungi (fungi_odb10)

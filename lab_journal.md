@@ -126,3 +126,11 @@ Pour la suite : nous allons par la suite travailler sur les assemblages filtrés
 * Test d'utilisation de Minimap2 sur un fichier d'assemblage de smartdenovo (Céline et Adeline)
 
 Commentaire : nous avons essayer d'utiliser Racon, mais nous avons rencontré des problèmes lors de son utilisation (Erreur : "Aborted (core dumped)").
+
+## 18/11 :
+
+* Installation de Mummer (Adeline)
+
+* Création d'un environnement BUSCO et installation de BUSCO (v. 5.8.0) (Céline)
+
+* Lancement d'un BUSCO sur l'assemblage 7890_filtered de flye en test (Céline)
