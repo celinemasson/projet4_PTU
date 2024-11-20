@@ -214,7 +214,6 @@
 
 
 ## 18/11 : 
-
 * Installation de Mummer dans l'environnement flye_env : (Adeline)
     commande :
       conda install bioconda::mummer
@@ -225,6 +224,31 @@
                 conda install -c conda-forge -c bioconda busco=5.8.0
 
 * Test de BUSCO avec l'assemblage 7890_filtered de flye : (Céline)
-    commande : nohup busco -i /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta -o /data/projet4/data/busco/busco_flye_7890_filtered -l fungi_odb10 -m genome -c 2 & 
+    commande : nohup busco -i /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta -o busco_flye_7890_filtered -l fungi_odb10 -m genome & 
 
 Commentaire : la librairie utilisée pour cela est la librairie des fungi (fungi_odb10)
+
+## 19/11 : 
+* Tentative numéro 30 : BUSCO (Céline)
+    commande : nohup busco -i /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta -o busco_flye_7890_filtered -l fungi_odb10 -m genome & 
+
+* Tentative de Racon : (Céline)
+    commande minimap2 : minimap2 -ax sr -t 4 /data/projet4/data/raw/ShortReads/YJS7890_Teq_1.fq.gz \
+/data/projet4/data/raw/ShortReads/YJS7890_Teq_2.fq.gz \
+/data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta \
+| gzip > /data/projet4/data/minimap/alignements_7890_minimap.sam.gz
+
+Commentaire : au début, on a essayé sans mettre un fichier sam zippé en output mais on a eu une erreur ([ERROR] failed to write the results: No space left on device) qui nous indique que nous n'avons pas assez de place. Après avoir fait une commande (du -h --max-depth=1 /data/projet4/data/minimap/ | sort -h) pour voir la place prise par les fichiers, on observait que les fichiers minimap2 non terminés lors de la commande faisaient déjà 53G. Nous avons donc tenté de faire avec un fichier .gz en sortie afin de limiter la place prise. 
+
+* Tentative MUMmer : 
+commande :  nucmer --prefix=alignment /data/projet4/data/smartdenovo/YJS7890_filtered/YJS7890_filtered.dmo.cns.fasta /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta 
+            mummerplot -terminal --png --layout --prefix=alignment alignment.delta 
+test d'une autre commande :
+    mummer -mum -b -c data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta data/smartdenovo/YJS7890_filtered/YJS7890_filtered.dmo.cns.fasta > data/mummer/mummer_flye_smart_YJS7890.mums
+    mummerplot -postscript -p mummer data/mummer/mummer_flye_smart_YJS7890.mums
+
+## 20/11 : 
+* Installation mummer et gnuplot dans l'environnement busco_env : 
+mummer : conda install bioconda::mummer (version : 3.23)
+gnuplot : conda install conda-forge::gnuplot (version : 5.4.10)
+

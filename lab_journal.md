@@ -133,4 +133,17 @@ Commentaire : nous avons essayer d'utiliser Racon, mais nous avons rencontré de
 
 * Création d'un environnement BUSCO et installation de BUSCO (v. 5.8.0) (Céline)
 
-* Lancement d'un BUSCO sur l'assemblage 7890_filtered de flye en test (Céline)
+## 19/11 : 
+
+* Lancement d'un BUSCO sur l'assemblage 7890_filtered de flye en test (Céline) et smartdenovo (Adeline)
+
+Commentaire : la commande BUSCO n'a pas fonctionnée (malgré plusieurs tentatives et modification du nombre de threads). Le serveur plante, le job est kill cependant, nous avons des fichiers de sorties dont des log qui n'annoncent pas d'erreur mais nous n'avons pas le fichier txt de sortie avec les infos. 
+
+## 20/11 : 
+* Relance de Minimap2 avec automatic_launch.py. 
+
+Commentaire : une relance a été nécessaire car le fichier sam.gz est corrompu. On lance avec automatic_launch.py afin d'avoir un retour sur l'erreur. 
+
+* Réinstallation de mummer sur l'environnement busco_env et installation de gnuplot (à cause d'un conflit sur l'environnement flye_env)
+version mummer 3.23 
+version gnuplot 5.4.10 
