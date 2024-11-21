@@ -1,6 +1,6 @@
 ### Creation of environments
 ## flye,smartdenovo and seqkit
-conda create -n flye_env -c bioconda flye 
+conda create -n flye_env -c bioconda flye
 conda rename -p /home/masson/.conda/envs/flye_env /data/projet4/conda/masson/flye_env
 conda activate /data/projet4/conda/masson/flye_env
 conda install -c bioconda seqkit
@@ -29,7 +29,7 @@ for specie in YJS7890 YJS7895 YJS8039; do
     NanoStat --fasta data/raw/LongReads/Corrected/${specie}_1n_correctedLR.fasta.gz --outdir data/resume_reads --name ${specie}_1n_resume
     # tsv format for calculation
     NanoStat --fasta data/raw/LongReads/Corrected/${specie}_1n_correctedLR.fasta.gz --outdir data/resume_reads --name ${specie}_1n_resume_tsv --tsv
-done 
+done
 
 ## Merge files into a single file with R
 R
@@ -114,3 +114,8 @@ for (specie in species) {
 
 q()
 n
+
+
+### Generate sam file to use with Racon
+
+

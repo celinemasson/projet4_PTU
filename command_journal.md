@@ -248,7 +248,24 @@ test d'une autre commande :
     mummerplot -postscript -p mummer data/mummer/mummer_flye_smart_YJS7890.mums
 
 ## 20/11 : 
-* Installation mummer et gnuplot dans l'environnement busco_env : 
+* Installation mummer et gnuplot dans l'environnement busco_env : (Céline)
 mummer : conda install bioconda::mummer (version : 3.23)
 gnuplot : conda install conda-forge::gnuplot (version : 5.4.10)
+
+## 21/11 :
+* Installation de BWA et blast dans l'environnement flye_env : (Adeline)
+BWA : conda install bioconda::bwa (version : 0.7.17)
+blast : se trouve déjà sur le serveur en version 2.12.0
+
+* Génération de fichier SAM avec BWA :
+commande : bwa index /data/projet4/data/raw/brbr.fasta
+bwa mem /data/projet4/data/raw/brbr.fasta /data/projet4/data/raw/ShortReads/YJS7890_Teq_1.fq.gz /data/projet4/data/raw/ShortReads/YJS7890_Teq_2.fq.gz > /data/projet4/data/bwa/7890_bwa.sam
+
+* Concaténation des fichiers Illumina :
+commande : cat YJS7890_Teq_1.fq.gz YJS7890_Teq_2.fq.gz > illumina_7890.fq.gz
+Puis le dézipper :
+commande : gzip -d illumina_7895.fq.gz
+
+* Re-test avec Racon et ce fichier SAM :
+commande : racon /data/projet4/data/raw/ShortReads/illumina_7890.fq.gz /data/projet4/data/bwa/7890_bwa.sam /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta > /data/projet4/data/racon/racon_7890_flye.fasta
 

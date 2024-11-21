@@ -147,3 +147,12 @@ Commentaire : une relance a été nécessaire car le fichier sam.gz est corrompu
 * Réinstallation de mummer sur l'environnement busco_env et installation de gnuplot (à cause d'un conflit sur l'environnement flye_env)
 version mummer 3.23 
 version gnuplot 5.4.10 
+
+## 21/11 :
+* Installation de BWA (version : 0.7.17)
+
+* Génération de fichier SAM avec BWA
+
+* Re-test avec Racon
+
+Commentaire : Nous avons généré de nouveaux fichiers SAM en utilisant cette fois ci l'outil BWA, au lieu de Minimap. Nous avons concaténer les fichiers illumina pour qu'ils soient utilisables pour Racon. Mais en utilisant Racon nous avonc toujours la même erreur "error: empty overlap set!".
