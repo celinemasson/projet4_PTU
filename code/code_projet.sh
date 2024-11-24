@@ -116,6 +116,43 @@ q()
 n
 
 
+### Concate illumina file to use with bwa and racon
+for specie in YJS7890 YJS7895 YJS8039; do
+    cat ${specie}*_1.fq.gz ${specie}*_2.fq.gz > illumina_${specie#YJS}.fq.gz
+    # replace "/1" by ":1" in the name
+    zcat illumina_${specie#YJS}.fq.gz | sed '/^@/s|/1$|:1|; /^@/s|/2$|:2|' | gzip > illumina_${specie#YJS}_rename.fq.gz
+done
+
+
 ### Generate sam file to use with Racon
 
+## flye
+for specie in YJS7890 YJS7895 YJS8039; do
+    echo $specie
+    # Perform BWA
+    bwa index data/flye/${specie}_output/${specie}_filtered/assembly_${specie#YJS}_filtered.fasta
+    bwa mem /data/projet4/data/flye/${specie}_output/${specie}_filtered/assembly_${specie#YJS}_filtered.fasta /data/projet4/data/raw/ShortReads/illumina_${specie#YJS}_rename.fq.gz > /data/projet4/data/bwa/bwa_${specie#YJS}_flye.sam
+    # Perform Racon
+    racon /data/projet4/data/raw/ShortReads/illumina_${specie#YJS}_rename.fq.gz /data/projet4/data/bwa/bwa_${specie#YJS}_flye.sam /data/projet4/data/flye/${specie}_output/${specie}_filtered/assembly_${specie#YJS}_filtered.fasta > /data/projet4/data/racon/racon_${specie#YJS}_flye.fasta
+done
 
+## smartdenovo
+for specie in YJS7890 YJS7895 YJS8039; do
+    echo $specie
+    # Perform BWA
+    bwa index data/smartdenovo/${specie}_filtered/${specie}_filtered.dmo.cns.fasta
+    bwa mem /data/projet4/data/smartdenovo/${specie}_filtered/${specie}_filtered.dmo.cns.fasta /data/projet4/data/raw/ShortReads/illumina_${specie#YJS}_rename.fq.gz > /data/projet4/data/bwa/bwa_${specie#YJS}_smartdenovo.sam
+    # Perform Racon
+    racon /data/projet4/data/raw/ShortReads/illumina_${specie#YJS}_rename.fq.gz /data/projet4/data/bwa/bwa_${specie#YJS}_smartdenovo.sam /data/projet4/data/smartdenovo/${specie}_filtered/${specie}_filtered.dmo.cns.fasta > /data/projet4/data/racon/racon_${specie#YJS}_smartdenovo.fasta
+done
+
+## test with Nanostat
+for specie in YJS7890 YJS7895 YJS8039; do
+    echo $specie
+    NanoStat --fasta /data/projet4/data/racon/racon_${specie#YJS}_flye.fasta --outdir data/resume_reads/ --name racon_${specie#YJS}_flye_resume.tsv
+done
+
+for specie in YJS7890 YJS7895 YJS8039; do
+    echo $specie
+    NanoStat --fasta /data/projet4/data/racon/racon_${specie#YJS}_smartdenovo.fasta --outdir data/resume_reads/ --name racon_${specie#YJS}_smartdenovo_resume.tsv
+done
