@@ -170,3 +170,5 @@ Commentaire : Les BUSCO ont été réalisés par Mme. Friedrich, dû à un probl
 * Génération des plot de busco : (Adeline)
 
 Commentaire : Nous pouvons remarquer que cela est assez similaire, mais que les assemblages réalisés par flye sont légérement meilleures (moins de Missing, Fragmented et Duplicated). Surtout sur l'assemblage 8039. Nous utiliserons donc les assemblages effectués par l'outils Flye pour réaliser la suite du projet.
+
+* Test d'une commande avec tblastn pour voir les options

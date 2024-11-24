@@ -156,3 +156,10 @@ for specie in YJS7890 YJS7895 YJS8039; do
     echo $specie
     NanoStat --fasta /data/projet4/data/racon/racon_${specie#YJS}_smartdenovo.fasta --outdir data/resume_reads/ --name racon_${specie#YJS}_smartdenovo_resume.tsv
 done
+
+
+### Blast with a reference file
+for specie in YJS7890 YJS7895 YJS8039; do
+    echo $specie
+    tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_${specie#YJS}_flye.fasta -out data/blast/tblastn_${specie#YJS}_flye.txt -evalue 1e-5  -outfmt 6
+done

@@ -299,3 +299,6 @@ commande : NanoStat --fasta /data/projet4/data/racon/racon_7890_flye.fasta --out
 commande (copier tous les fichiers short_summary.txt dans un dossier et ensuite utiliser le script generate_plot.py donné par BUSCO):
     cp data/busco/flyeAssemblies_busco/busco_flye_7890_filtered/short_summary.*.txt data/busco/BUSCO_summaries/
     python3 conda/masson/busco_env/bin/generate_plot.py -wd data/busco/BUSCO_summaries/
+
+* Test avec blast :
+tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_7890_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt 6
