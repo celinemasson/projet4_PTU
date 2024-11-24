@@ -156,3 +156,17 @@ version gnuplot 5.4.10
 * Re-test avec Racon
 
 Commentaire : Nous avons généré de nouveaux fichiers SAM en utilisant cette fois ci l'outil BWA, au lieu de Minimap. Nous avons concaténer les fichiers illumina pour qu'ils soient utilisables pour Racon. Mais en utilisant Racon nous avonc toujours la même erreur "error: empty overlap set!".
+
+## 23/11 :
+* Téléchargement des Busco (Adeline)
+
+* Génération des fichier SAM avec BWA et polishing avec Racon (Adeline)
+
+* Réalisation de MUMMER plot via Galaxy (Céline)
+
+Commentaire : Les BUSCO ont été réalisés par Mme. Friedrich, dû à un problème de place ou de mémoire sur le serveur, ce qui rendait impossible la réalisation de la commande. Nous avons pû réaliser les fichiers .sam avec l'outils BWA en concaténant au préalable les fichiers illumina, pour ensuite faire le polishing avec Racon. Aussi, dû à un problème des outils de visualisation des MUMMER plot sur le serveur, nous les réalisons directement via Galaxy.
+
+## 24/11 :
+* Génération des plot de busco : (Adeline)
+
+Commentaire : Nous pouvons remarquer que cela est assez similaire, mais que les assemblages réalisés par flye sont légérement meilleures (moins de Missing, Fragmented et Duplicated). Surtout sur l'assemblage 8039. Nous utiliserons donc les assemblages effectués par l'outils Flye pour réaliser la suite du projet.

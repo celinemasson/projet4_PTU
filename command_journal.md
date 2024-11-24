@@ -293,3 +293,9 @@ Commentaire : des tests ont été fait avec différentes options pour le mummer 
 
 * Test avec Nanostat des fichiers Racon : (Adeline)
 commande : NanoStat --fasta /data/projet4/data/racon/racon_7890_flye.fasta --outdir data/resume_reads/ --name racon_7890_flye_resume.tsv
+
+## 24/11 :
+* Génération des plot de busco : (Adeline)
+commande (copier tous les fichiers short_summary.txt dans un dossier et ensuite utiliser le script generate_plot.py donné par BUSCO):
+    cp data/busco/flyeAssemblies_busco/busco_flye_7890_filtered/short_summary.*.txt data/busco/BUSCO_summaries/
+    python3 conda/masson/busco_env/bin/generate_plot.py -wd data/busco/BUSCO_summaries/
