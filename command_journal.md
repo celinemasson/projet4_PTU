@@ -240,7 +240,7 @@ Commentaire : la librairie utilisée pour cela est la librairie des fungi (fungi
 
 Commentaire : au début, on a essayé sans mettre un fichier sam zippé en output mais on a eu une erreur ([ERROR] failed to write the results: No space left on device) qui nous indique que nous n'avons pas assez de place. Après avoir fait une commande (du -h --max-depth=1 /data/projet4/data/minimap/ | sort -h) pour voir la place prise par les fichiers, on observait que les fichiers minimap2 non terminés lors de la commande faisaient déjà 53G. Nous avons donc tenté de faire avec un fichier .gz en sortie afin de limiter la place prise. 
 
-* Tentative MUMmer : 
+* Tentative MUMmer : (Céline)
 commande :  nucmer --prefix=alignment /data/projet4/data/smartdenovo/YJS7890_filtered/YJS7890_filtered.dmo.cns.fasta /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta 
             mummerplot -terminal --png --layout --prefix=alignment alignment.delta 
 test d'une autre commande :
@@ -257,15 +257,39 @@ gnuplot : conda install conda-forge::gnuplot (version : 5.4.10)
 BWA : conda install bioconda::bwa (version : 0.7.17)
 blast : se trouve déjà sur le serveur en version 2.12.0
 
-* Génération de fichier SAM avec BWA :
+* Génération de fichier SAM avec BWA : (Céline)
 commande : bwa index /data/projet4/data/raw/brbr.fasta
 bwa mem /data/projet4/data/raw/brbr.fasta /data/projet4/data/raw/ShortReads/YJS7890_Teq_1.fq.gz /data/projet4/data/raw/ShortReads/YJS7890_Teq_2.fq.gz > /data/projet4/data/bwa/7890_bwa.sam
 
-* Concaténation des fichiers Illumina :
+* Concaténation des fichiers Illumina : (Céline)
 commande : cat YJS7890_Teq_1.fq.gz YJS7890_Teq_2.fq.gz > illumina_7890.fq.gz
 Puis le dézipper :
 commande : gzip -d illumina_7895.fq.gz
 
-* Re-test avec Racon et ce fichier SAM :
+* Re-test avec Racon et ce fichier SAM : (Céline & Adeline)
 commande : racon /data/projet4/data/raw/ShortReads/illumina_7890.fq.gz /data/projet4/data/bwa/7890_bwa.sam /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta > /data/projet4/data/racon/racon_7890_flye.fasta
 
+## 23/11 : 
+* Téléchargement des busco (réalisés par Mme. Friedrich) (Adeline)
+
+* Concaténation de tous les fichiers illumina, et rename /1 en :1 : (Adeline)
+commande : zcat illumina_7890.fq.gz | sed '/^@/s|/1$|:1|; /^@/s|/2$|:2|' | gzip > illumina_7890_rename.fq.gz
+
+* Re régénration de fichier SAM avec BWA : (Adeline)
+commande : bwa index data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta
+    bwa mem /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta /data/projet4/data/raw/ShortReads/illumina_7890_rename.fq.gz > /data/projet4/data/bwa/7890_bwa.sam 
+
+* Polishing avec Racon : (Adeline)
+commande : racon /data/projet4/data/raw/ShortReads/illumina_7890_rename.fq.gz /data/projet4/data/bwa/7890_bwa.sam /data/projet4/data/flye/YJS7890_output/YJS7890_filtered/assembly_7890_filtered.fasta > /data/projet4/data/racon/racon_7890_flye.fasta
+
+* Réalisation de MUMMER plot via Galaxy : (Céline)
+Outil : Mummer 
+Paramètres : 
+Référence Sequence : fichier smartdenovo (assemblage fasta)
+Query Sequence : fichier flye (assemblage fasta)
+Minimum Match Length : 2500 ou 3000 ou 5000 
+
+Commentaire : des tests ont été fait avec différentes options pour le mummer (changement de Anchoring avec -mumreference ou -mum, break length 100...) mais cela n'induisait pas de différences sur les plots. 
+
+* Test avec Nanostat des fichiers Racon : (Adeline)
+commande : NanoStat --fasta /data/projet4/data/racon/racon_7890_flye.fasta --outdir data/resume_reads/ --name racon_7890_flye_resume.tsv
