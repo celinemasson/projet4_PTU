@@ -171,4 +171,9 @@ Commentaire : Les BUSCO ont été réalisés par Mme. Friedrich, dû à un probl
 
 Commentaire : Nous pouvons remarquer que cela est assez similaire, mais que les assemblages réalisés par flye sont légérement meilleures (moins de Missing, Fragmented et Duplicated). Surtout sur l'assemblage 8039. Nous utiliserons donc les assemblages effectués par l'outils Flye pour réaliser la suite du projet.
 
-* Test d'une commande avec tblastn pour voir les options
+* Test d'une commande avec tblastn pour voir les options (Adeline)
+
+## 27/11 :
+* Test d'une nouvelle commande pour tblastn
+
+* Tri des tblastn obtenus en fonction du %ID et de la longueur minimum

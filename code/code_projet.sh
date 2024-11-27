@@ -161,5 +161,12 @@ done
 ### Blast with a reference file
 for specie in YJS7890 YJS7895 YJS8039; do
     echo $specie
-    tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_${specie#YJS}_flye.fasta -out data/blast/tblastn_${specie#YJS}_flye.txt -evalue 1e-5  -outfmt 6
+    tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_${specie#YJS}_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt "6 qseqid qlen sseqid slen pident length qstart qend sstart send evalue"
+done
+
+# Sort blast result with ID and length
+for specie in YJS7890 YJS7895 YJS8039; do
+    ID=80
+    length_min=500
+    cat data/blast/tblastn_${specie#YJS}_flye.txt | awk -vOFS='\t' -vID=$ID -vlength_min=$length_min '$5>ID && $6>length_min {print $0}' > data/blast/tblastn_sort_${specie#YJS}_flye.txt
 done

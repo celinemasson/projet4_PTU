@@ -300,5 +300,12 @@ commande (copier tous les fichiers short_summary.txt dans un dossier et ensuite 
     cp data/busco/flyeAssemblies_busco/busco_flye_7890_filtered/short_summary.*.txt data/busco/BUSCO_summaries/
     python3 conda/masson/busco_env/bin/generate_plot.py -wd data/busco/BUSCO_summaries/
 
-* Test avec blast :
+* Test avec blast : (Adeline)
 tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_7890_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt 6
+
+## 27/11 :
+* Test de le nouvelle commande pour blast :
+tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_7890_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt "6 qseqid qlen sseqid slen pident length qstart qend sstart send evalue"
+
+* Tri des blast en fonction du %ID et de la longueur minimum
+cat data/blast/tblastn_7890_flye.txt | awk '$5>80 && $2>500 {print $0}' > data/blast/tblastn_sort_7890_flye.txt
