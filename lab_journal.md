@@ -177,3 +177,10 @@ Commentaire : Nous pouvons remarquer que cela est assez similaire, mais que les 
 * Test d'une nouvelle commande pour tblastn
 
 * Tri des tblastn obtenus en fonction du %ID et de la longueur minimum
+
+## 28/11 : 
+* Lancement du filtrage des fichiers tblastn en se basant sur le pourcentage de couverture pour ne garder que les séquences protéiques qui ont une couverture supérieure à 90%. (Adeline et Céline)
+
+* Création d'un script R qui donne un tableau récapitulatif de présence/absence des protéines retrouvées dans chaque souche (comparé aux protéines trouvées chez brbr) et automatisation dans le fichier code_projet.sh (Adeline)
+
+* Mise à jour du README et génération des fichiers .yml qui résument les packages de chaque environnement (Céline)

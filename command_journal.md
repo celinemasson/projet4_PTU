@@ -304,8 +304,34 @@ commande (copier tous les fichiers short_summary.txt dans un dossier et ensuite 
 tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_7890_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt 6
 
 ## 27/11 :
-* Test de le nouvelle commande pour blast :
+* Test de le nouvelle commande pour blast : (Adeline)
 tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_7890_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt "6 qseqid qlen sseqid slen pident length qstart qend sstart send evalue"
 
-* Tri des blast en fonction du %ID et de la longueur minimum
+* Tri des blast en fonction du %ID et de la longueur minimum (Adeline)
 cat data/blast/tblastn_7890_flye.txt | awk '$5>80 && $2>500 {print $0}' > data/blast/tblastn_sort_7890_flye.txt
+
+## 28/11 :
+* Re test de la commande de tri de blast en se basant cette fois ci sur le pourcentage de couverture (Céline et Adeline)
+cat data/blast/tblastn_7890_flye.txt | awk '$5>80 && ($6/$2*100)>90 {print $0}' > data/blast/tblastn_sort_7890_flye.txt
+
+* Création d'un tableau présence/absence (voir commande automatisée dans code_projet.sh) : (Adeline)
+tblastn_data <- read.table("data/blast/tblastn_sort_7890_flye.txt", header = FALSE, sep = "\t")
+proteins_found <- tblastn_data$V1
+
+ref_data <- readLines("data/raw/brettAllProt_ref2n.fasta")
+protein_ref <- ref_data[grep("^>", ref_data)]
+protein_ref <- gsub("^>", "", protein_ref)
+
+presence <- c()
+for (protein in protein_ref) {
+  if (protein %in% proteins_found) {
+    presence <- c(presence, TRUE)
+  } else {
+    presence <- c(presence, FALSE)
+  }
+}
+
+presence_absence <- data.frame("Protein" = protein_ref, "YJS7890" = presence)
+
+* Génération des fichiers yml : (Céline)
+    commande : conda env export > packages_busco_env.yml

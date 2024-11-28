@@ -161,12 +161,42 @@ done
 ### Blast with a reference file
 for specie in YJS7890 YJS7895 YJS8039; do
     echo $specie
-    tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_${specie#YJS}_flye.fasta -out data/blast/tblastn_7890_flye.txt -evalue 1e-5  -outfmt "6 qseqid qlen sseqid slen pident length qstart qend sstart send evalue"
+    tblastn -query data/raw/brettAllProt_ref2n.fasta -subject data/racon/racon_${specie#YJS}_flye.fasta -out data/blast/tblastn_${specie#YJS}_flye.txt -evalue 1e-5 -outfmt "6 qseqid qlen sseqid slen pident length qstart qend sstart send evalue"
 done
 
 # Sort blast result with ID and length
 for specie in YJS7890 YJS7895 YJS8039; do
     ID=80
-    length_min=500
-    cat data/blast/tblastn_${specie#YJS}_flye.txt | awk -vOFS='\t' -vID=$ID -vlength_min=$length_min '$5>ID && $6>length_min {print $0}' > data/blast/tblastn_sort_${specie#YJS}_flye.txt
+    cover=90
+    cat data/blast/tblastn_${specie#YJS}_flye.txt | awk -vOFS='\t' -vID=$ID -vcover=$cover '$5>ID && ($6/$2*100)>cover {print $0}' > data/blast/tblastn_sort_${specie#YJS}_flye.txt
 done
+
+# Create table with presence or not of protein
+R
+
+species <- c("7890", "7895", "8039")
+ref_data <- readLines("data/raw/brettAllProt_ref2n.fasta")
+protein_ref <- ref_data[grep("^>", ref_data)]
+protein_ref <- gsub("^>", "", protein_ref)
+presence_absence <- data.frame("Protein" = protein_ref)
+
+for (specie in species) {
+    tblastn_path <- paste0("data/blast/tblastn_sort_",specie,"_flye.txt")
+    tblastn_data <- read.table(tblastn_path, header = FALSE, sep = "\t")
+    proteins_found <- tblastn_data$V1
+
+    presence <- c()
+    for (protein in protein_ref) {
+        if (protein %in% proteins_found) {
+            presence <- c(presence, TRUE)
+        } else {
+            presence <- c(presence, FALSE)
+        }
+    }
+
+    specie_name <- paste0("YJS", specie)
+    presence_absence[[specie_name]] <- presence
+}
+
+output_path <- "data/blast/summary_protein.tsv"
+write.table(presence_absence, file = output_path, sep = "\t", row.names = FALSE, quote = FALSE)
