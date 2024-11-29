@@ -166,34 +166,37 @@ done
 
 # Sort blast result with ID and length
 for specie in YJS7890 YJS7895 YJS8039; do
-    ID=80
-    cover=90
+    # Initialise treshold with a minimum %ID of 70 and %coverage of 70%
+    ID=70
+    cover=70
     cat data/blast/tblastn_${specie#YJS}_flye.txt | awk -vOFS='\t' -vID=$ID -vcover=$cover '$5>ID && ($6/$2*100)>cover {print $0}' > data/blast/tblastn_sort_${specie#YJS}_flye.txt
 done
 
 # Create table with presence or not of protein
 R
-
+# Initialise variable 
 species <- c("7890", "7895", "8039")
 ref_data <- readLines("data/raw/brettAllProt_ref2n.fasta")
+# Identifie name of protein in the reference file with ">"
 protein_ref <- ref_data[grep("^>", ref_data)]
+# Delete the ">" to only have the name
 protein_ref <- gsub("^>", "", protein_ref)
 presence_absence <- data.frame("Protein" = protein_ref)
 
 for (specie in species) {
     tblastn_path <- paste0("data/blast/tblastn_sort_",specie,"_flye.txt")
     tblastn_data <- read.table(tblastn_path, header = FALSE, sep = "\t")
+    # Take the first colone of the blast result to have the name of proteins found
     proteins_found <- tblastn_data$V1
 
     presence <- c()
     for (protein in protein_ref) {
         if (protein %in% proteins_found) {
-            presence <- c(presence, TRUE)
+            presence <- c(presence, "presence")
         } else {
-            presence <- c(presence, FALSE)
+            presence <- c(presence, "absence")
         }
     }
-
     specie_name <- paste0("YJS", specie)
     presence_absence[[specie_name]] <- presence
 }

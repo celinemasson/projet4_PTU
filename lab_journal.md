@@ -184,3 +184,6 @@ Commentaire : Nous pouvons remarquer que cela est assez similaire, mais que les 
 * Création d'un script R qui donne un tableau récapitulatif de présence/absence des protéines retrouvées dans chaque souche (comparé aux protéines trouvées chez brbr) et automatisation dans le fichier code_projet.sh (Adeline)
 
 * Mise à jour du README et génération des fichiers .yml qui résument les packages de chaque environnement (Céline)
+
+## 29/11 :
+* Test de différents seuils avec la commande de tri pour les résultats de blast. (Adeline)
