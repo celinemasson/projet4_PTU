@@ -187,3 +187,8 @@ Commentaire : Nous pouvons remarquer que cela est assez similaire, mais que les 
 
 ## 29/11 :
 * Test de différents seuils avec la commande de tri pour les résultats de blast. (Adeline)
+
+## 03/12 : 
+* Création d'un script R pour faire un diagramme de Venn : il permet d'illustrer le tableau de résultats de BLAST et de voir combien de protéines sont présentes en communs avec d'autres souches (ou non) (Céline)
+
+* Réalisation de mummerplot via Galaxy : assemblages flye contre la référence brbr afin de voir s'il manque des régions dans les assemblages de flye (Céline) échec

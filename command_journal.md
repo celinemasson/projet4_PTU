@@ -335,3 +335,4 @@ presence_absence <- data.frame("Protein" = protein_ref, "YJS7890" = presence)
 
 * Génération des fichiers yml : (Céline)
     commande : conda env export > packages_busco_env.yml
+
