@@ -1,45 +1,54 @@
 # projet4_PTU
-Github du projet tutoré de M2BBS. Etude comparative des génomes acquis au sein de la levure Brettanomyces bruxellensis.
 
-Le dossier projet4/ est composé de différents fichiers :
-* README.md : ce fichier
-* lab_journal.md : le cahier de laboratoire contenant la description des tâches accomplies
-* command_journal.md : brouillon des commandes effectuées pour chaque tâche du lab_journal.md
+## Description du Projet
+Ce projet tutoré de M2BBS se concentre sur une étude comparative des génomes acquis au sein de la levure *Brettanomyces bruxellensis*. L'objectif principal est de comparer les assemblages de génomes produits à partir des données de séquençage de plusieurs souches de *Brettanomyces bruxellensis* (7890, 7895, 8039) en utilisant différents outils de bioinformatique pour l'assemblage et l'analyse des données de séquence. Ces outils incluent Flye, Smartdenovo, et plusieurs autres pour le filtrage des données, le polissage des assemblages, et l'analyse de la qualité.
 
-Et de différents sous-dossiers :
-* conda/ : contenant les différents environnements utilisés
-    * gagnon/nanostat_env/ : contenant l'environnement avec les packages NanoStat et R
-    * masson/flye_env/ : contenant l'environnement avec les packages Flye et Smartdenovo
+## Structure du Dossier `projet4/`
 
-* code/ : contenant les scripts et codes utilisés
-    * code_projet.sh : contenant le code utilisé pour générer les différents outputs dans le dossier data/
-    * automatic_launch.py : script permettant de lancer des commandes automatiquement
+Le dossier `projet4/` contient les fichiers et sous-dossiers suivants :
 
-* data/ : contenant toutes les données utilisées
-    * blast/ : contenant les fichiers de sortie de tblastn 
-    * busco/ : contenant les donénes provenant des busco
-        - BUSCO_summaries : contient les short_summaries des BUSCO, le script pour faire la figure récapitulative des BUSCO
-    * bwa/ : contenant les fichiers résultants du mapping par bwa pour smartdenovo et flye 
-    * data_modified/ : contenant les séquences modifiées avec Seqkit
-        - LongReads_wo_1000/ : contenant les fichiers avec les séquences inférieures à 1000 bases filtrées de data/raw LongReads/Corrected/
-    * flye/ : contenant les fichiers output de l'outil flye
-        - YSJ7890_output : contient les fichiers de sorties flye pour la souche 7890 (raw : flye à partir des données brutes ; filtered : flye à partir des données filtrées)
-        - YSJ7895_output : contient les fichiers de sorties flye pour la souche 7895 (raw : flye à partir des données brutes ; filtered : flye à partir des données filtrées)
-        - YSJ8039_output : contient les fichiers de sorties flye pour la souche 7890 (raw : flye à partir des données brutes ; filtered : flye à partir des données filtrées)
-    * length_plot_data/ : contenant les plots de la distibution de la taille des scaffolds pour chaque assemblage 
-    * mummer/ : contenant les MUMMERPLOT des comparaisons des alignements. Les alignements smartdenovo et flye sont comparés entre eux pour chaque souche. 
-    * racon/ : contenant les assemblages polish par racon 
-    * raw/ : contenant les données brutes
-        - LongReads/ : avec les séquences brutes et corrigées
-        - ShortReads/ : avec les séquences pairées issues d'Illumina
-        - brbr.fasta et brbr.gff : séquence de référence
-        - brettAllProt_ref2n.fasta : contient les séquences protéiques des protéines retrouvée dans la référence (brbr)
-    * * resume_reads/ : contenant tous les fichiers résumés
-        - _resume(_tsv) : fichier résumé de NanoStat des séquences de data/raw/LongReads/Corrected/, et aussi en format tsv
-        - _flye_raw(_filtered)assembly_resume : fichier résumé de NanoStat des assemblages de Flye
-        - _smartdenovo_raw(_filtered)assembly_resume : fichier résumé de NanoStat des assemblages de Smartdenovo
-        - resume_reads.tsv : résumé des trois fichiers _resume, avec en plus la couverture
-    * smartdenovo/ : contenant les fichiers output de l'outil smartdenovo
-        - _filtered/ : assemblage avec les séquences contenues dans data/data_modified/LongReads_wo_1000/, contenant le fichier d'assemblage en format .cns (convertis en .cns.fasta)
-        - _raw/ : assemblage avec les séquences contenues dans data/LongReads/Corrected/, contenant le fichier d'assemblage en format .cns (convertis en .cns.fasta)
-   
+### Fichiers principaux :
+- **README.md** : Fichier d'explication générale du projet.
+- **lab_journal.md** : Cahier de laboratoire contenant la description des tâches accomplies.
+- **command_journal.md** : Brouillon des commandes effectuées pour chaque tâche du `lab_journal.md`.
+
+### Sous-dossiers :
+
+#### **conda/**
+Environnements conda utilisés pour les différentes étapes du projet.
+  - **gagnon/nanostat_env/** : Environnement contenant les packages NanoStat et R.
+  - **masson/flye_env/** : Environnement contenant les packages Flye et Smartdenovo.
+
+#### **code/**
+Scripts et codes utilisés pour l'automatisation et le traitement des données.
+  - **code_projet.sh** : Contient les commandes permettant de générer les différents résultats dans le dossier `data/`.
+  - **automatic_launch.py** : Script permettant de lancer automatiquement plusieurs commandes.
+
+#### **data/**
+Contient toutes les données utilisées et générées pendant le projet.
+  - **blast/** : Contient les fichiers de sortie de `tblastn`.
+  - **busco/** : Contient les données provenant de l'outil BUSCO.
+    - **BUSCO_summaries** : Contient les résumés de BUSCO et le script pour générer la figure récapitulative des résultats.
+  - **bwa/** : Contient les fichiers résultants du mapping par `BWA` pour les assemblages Smartdenovo et Flye.
+  - **data_modified/** : Contient les séquences modifiées avec `Seqkit`.
+    - **LongReads_wo_1000/** : Contient les séquences filtrées (sequences inférieures à 1000 pb).
+  - **flye/** : Contient les fichiers de sortie de l'outil Flye.
+    - **YSJ7890_output** : Assemblages pour la souche 7890 (brutes et filtrées).
+    - **YSJ7895_output** : Assemblages pour la souche 7895 (brutes et filtrées).
+    - **YSJ8039_output** : Assemblages pour la souche 8039 (brutes et filtrées).
+  - **length_plot_data/** : Contient les plots de la distribution de la taille des scaffolds pour chaque assemblage.
+  - **mummer/** : Contient les MUMMERPLOTS des comparaisons des alignements entre Smartdenovo et Flye.
+  - **racon/** : Contient les assemblages polishes réalisés avec Racon.
+  - **raw/** : Contient les données brutes utilisées dans l'étude.
+    - **LongReads/** : Contient les séquences brutes et corrigées.
+    - **ShortReads/** : Contient les séquences Illumina pairées.
+    - **brbr.fasta et brbr.gff** : Séquence de référence pour *Brettanomyces bruxellensis*.
+    - **brettAllProt_ref2n.fasta** : Contient les séquences protéiques de la référence brbr.
+  - **resume_reads/** : Contient les fichiers résumés des lectures.
+    - **_resume(_tsv)** : Fichier résumé de NanoStat des séquences brutes.
+    - **_flye_raw(_filtered)assembly_resume** : Résumé des assemblages Flye.
+    - **_smartdenovo_raw(_filtered)assembly_resume** : Résumé des assemblages Smartdenovo.
+    - **resume_reads.tsv** : Résumé des trois fichiers _resume, avec la couverture des lectures.
+  - **smartdenovo/** : Contient les fichiers de sortie de l'outil Smartdenovo.
+    - **_filtered/** : Assemblages avec les séquences filtrées.
+    - **_raw/** : Assemblages avec les séquences brutes.
